@@ -24,10 +24,10 @@ export const login = () => {
               <div className="rectangle" />
             </div>
             <div className="email">
-              <div className="text">Enter your email</div>
+              <div className="text">Enter Employee ID</div>
             </div>
             <div className="create-password">
-              <div className="text-2">Create password</div>
+              <div className="text-2">Enter password</div>
               <img className="eye" alt="Eye" src="eye.png" />
             </div>
           </div>
