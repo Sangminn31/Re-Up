@@ -184,7 +184,7 @@
     align-items: center;
     align-self: stretch;
     border: 0.72px solid;
-    border-color: #dbdbdb;
+    border-color: var(--bordernormal-day);
     border-radius: 5.78px;
     display: flex;
     height: 34.65px;
@@ -261,4 +261,20 @@
     top: 88px;
     width: 263px;
   }
+.button-div-wrapper {
+  all: unset;
+    align-items: center;
+    background-color: #131314;
+    color:#ffffff;
+    border-radius: 8.66px;
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 auto;
+    gap: 5.78px;
+    justify-content: center;
+    padding: 8.66px 5.78px;
+    position: relative;
+    width: 288.75px;
+}
+
   

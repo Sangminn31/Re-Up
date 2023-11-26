@@ -16,7 +16,9 @@ import Container from 'react-bootstrap/Container';
 import './App.css';
 
 
-import Home from './components/Login';
+import Home from './components/home';
+import Login from './components/Login';
+import SignUp from './components/signup';
 //
 function App() {
 
@@ -31,6 +33,27 @@ function App() {
             <Nav className="mr-auto">
               <Nav.Link as={Link} to="/home" >Home</Nav.Link>
             </Nav>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+            </Nav>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
+            </Nav>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/inventory">Inventory</Nav.Link>
+            </Nav>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/deliverytime">Delivery Time</Nav.Link>
+            </Nav>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/search">search</Nav.Link>
+            </Nav>
+            <Nav className="mr-4">
+              <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
+            </Nav>
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/login">Login</Nav.Link>
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -39,6 +62,10 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
+          <Route index element={<SignUp />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route index element={<Login />} />
+          <Route path="login" element={<Login />} />
         </Routes>
       </div>
 
