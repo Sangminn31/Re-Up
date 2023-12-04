@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import axios from 'axios';
 import retailStoreImage from '../assets/retail-store-management-process.jpg';
 import "../assets/css/signup.css";
+import { useNavigate } from 'react-router-dom';
+
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -29,6 +32,7 @@ export const SignUp = () => {
     try {
       const response = await axios.post('http://localhost:3001/signup', formData);
       alert(response.data);
+      navigate('/login');
     } catch (error) {
       if (error.response && error.response.status === 400) {
         alert('Email already in use');

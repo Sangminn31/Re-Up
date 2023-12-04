@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 import "../assets/css/login.css";
 
 export const Login = () => {
@@ -8,7 +9,7 @@ export const Login = () => {
     email: '',
     password: '',
   });
-
+  const auth = useAuth();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -23,8 +24,11 @@ export const Login = () => {
     try {
       const response = await axios.post('http://localhost:3001/login', loginData);
       if (response.data.success) {
+        auth.login(response.data.token);
+        console.log(response.data);
         alert('Login successful');
         navigate('/home', { state: { name: response.data.name, customerType: response.data.customerType } }); // Replace '/' with your home route
+        console.log(response.data)
       } else {
         alert('Login failed');
       }
@@ -42,7 +46,7 @@ export const Login = () => {
           <div className="heading">Login</div>
           <form onSubmit={handleLogin}>
           <div className="content">
-            <div className="tabs">
+            {/* <div className="tabs">
               <div className="div">
                 <div className="left-tabs">
                   <div className="by-email">
@@ -55,7 +59,7 @@ export const Login = () => {
                 </div>
               </div>
               <div className="rectangle" />
-            </div>
+            </div> */}
             <div className="email">
               <input type="email" name="email" onChange={handleInputChange} className="border-0 w-100" placeholder="Enter your Email"/>
             </div>

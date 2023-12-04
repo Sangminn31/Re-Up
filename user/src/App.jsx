@@ -5,6 +5,10 @@ import {
   Link,
   Routes
 } from "react-router-dom";
+import ProtectedRoute from './components/protectedRoute';
+import { AuthProvider } from './components/AuthContext';
+import { useAuth } from './components/AuthContext';
+import CustomNavbar from './components/CustomNavbar';
 //
 // This app requires react-bootstrap and bootstrap installed: 
 //    npm install react-bootstrap bootstrap
@@ -19,45 +23,17 @@ import './App.css';
 import Home from './components/home';
 import Login from './components/Login';
 import SignUp from './components/signup';
+import Inventory from './components/inventory';
+import Search from './components/search';
+import Orders from './components/orders';
 //
 function App() {
-
+  const auth = useAuth();
 
   return (
+    <AuthProvider>
     <Router>
-      <Navbar bg="primary" variant="dark" expand="lg">
-        <Container>
-          <Navbar.Brand href="home">Re-Up</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/home" >Home</Nav.Link>
-            </Nav>
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
-            </Nav>
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
-            </Nav>
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/inventory">Inventory</Nav.Link>
-            </Nav>
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/deliverytime">Delivery Time</Nav.Link>
-            </Nav>
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/search">search</Nav.Link>
-            </Nav>
-            <Nav className="mr-4">
-              <Nav.Link as={Link} to="/signup">Sign Up</Nav.Link>
-            </Nav>
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/login">Login</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-    
+      <CustomNavbar />
       <div>
         <Routes>
           <Route index element={<Home />} />
@@ -66,11 +42,20 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route index element={<Login />} />
           <Route path="login" element={<Login />} />
+          <Route index element={<Search />} />
+          <Route path="search" element={<Search />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="inventory" element={<Inventory />} />
+            <Route path="orders" element={<Orders />} />
+            </Route>
+
         </Routes>
       </div>
 
 
     </Router>
+    </AuthProvider>
     
 
 
