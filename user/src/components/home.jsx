@@ -16,7 +16,8 @@ export const Home = () => {
             <div className="tabs">
               <div className="div">
                 <div className="left-tabs">
-                <div>Welcome, {name}! Your customer type is {customerType}.</div>
+                <div className="welcome-message">Welcome, {name}!</div>
+                  <div className="customer-type">Your customer type is {customerType}.</div>
                   </div>
                   </div>
           </div>

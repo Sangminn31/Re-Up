@@ -25,6 +25,7 @@ export const Login = () => {
       const response = await axios.post('http://localhost:3001/login', loginData);
       if (response.data.success) {
         auth.login(response.data.token);
+        localStorage.setItem('userName', response.data.name);
         console.log(response.data);
         alert('Login successful');
         navigate('/home', { state: { name: response.data.name, customerType: response.data.customerType } }); // Replace '/' with your home route

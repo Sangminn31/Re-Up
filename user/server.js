@@ -58,14 +58,18 @@ app.post('/login', async (req, res) => {
       return res.status(401).send('Invalid credentials');
     }
 
-    // JWT 토큰 생성
+   // JWT token create
     const token = jwt.sign(
       { userId: user._id },
-      'secretKey', // 비밀키 (실제 서비스에서는 보안을 위해 복잡한 키 사용)
-      { expiresIn: '1h' } // 토큰 유효시간 설정
+      'secretKey', 
+      { expiresIn: '1h' } 
     );
 
-    res.status(200).send({ success: true, token });
+    res.status(200).send({
+      success: true,
+      token,
+      name: user.name, 
+      customerType: user.customerType });
   } catch (error) {
     console.error('Login error:', error.message);
     res.status(500).send('Error logging in');
@@ -80,7 +84,7 @@ const inventorySchema = new mongoose.Schema({
   productType: String,
   price: Number,
   brandName: String,
-  productImage: String // This will store the path to the image
+  productImage: String
 });
 
 const Inventory = mongoose.model('Inventory', inventorySchema);
@@ -128,12 +132,53 @@ app.get('/search', async (req, res) => {
       query.productName = { $regex: req.query.productName, $options: 'i' };
     }
     // Add other query parameters if needed
-
     const inventoryItems = await Inventory.find(query);
     res.status(200).send(inventoryItems);
   } catch (error) {
     console.error('Search error:', error.message);
     res.status(500).send('Error searching inventory items');
+  }
+});
+
+
+// Order function
+const orderSchema = new mongoose.Schema({
+  customerName: String,
+  productName: String,
+  quantity: Number,
+  brandName: String,
+  productType: String,
+  orderDetails: String,
+});
+
+const Order = mongoose.model('Order', orderSchema);
+
+
+app.post('/orders', async (req, res) => {
+  try {
+    const { productId, quantity, customerName, orderDetails, productName, productType, price, brandName } = req.body;
+
+    const inventoryItem = await Inventory.findById(productId);
+    if (inventoryItem && inventoryItem.quantity >= quantity) {
+      inventoryItem.quantity -= quantity;
+      await inventoryItem.save();
+      const newOrder = new Order({
+        customerName,
+        productName,
+        quantity,
+        productType,
+        price,
+        brandName,
+        orderDetails
+      });
+      const savedOrder = await newOrder.save();
+      res.status(201).send(savedOrder);
+    } else {
+      res.status(400).send('Not enough inventory');
+    }
+  } catch (error) {
+    console.error('Order add error:', error.message);
+    res.status(500).send('Error adding order');
   }
 });
 

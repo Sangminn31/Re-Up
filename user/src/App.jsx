@@ -26,6 +26,7 @@ import SignUp from './components/signup';
 import Inventory from './components/inventory';
 import Search from './components/search';
 import Orders from './components/orders';
+import DeliveryTime from './components/deliveryTime';
 //
 function App() {
   const auth = useAuth();
@@ -42,12 +43,12 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route index element={<Login />} />
           <Route path="login" element={<Login />} />
-          <Route index element={<Search />} />
-          <Route path="search" element={<Search />} />
 
           <Route element={<ProtectedRoute />}>
+            <Route path="search" element={<Search />} />
             <Route path="inventory" element={<Inventory />} />
             <Route path="orders" element={<Orders />} />
+            <Route path="deliverytime" element={<DeliveryTime />} />
             </Route>
 
         </Routes>

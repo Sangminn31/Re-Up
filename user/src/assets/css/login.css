@@ -277,4 +277,16 @@
     width: 288.75px;
 }
 
+
+.welcome-message {
+  color: #007bff; 
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.customer-type {
+  color: #28a745;
+  font-style: italic;
+  font-weight: bolder;
+}
   

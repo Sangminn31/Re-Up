@@ -22,9 +22,11 @@ export const Search = () => {
           console.error('Error fetching search results:', error);
         }
       };
+
+      const handleOrderClick = (item) => {
+        navigate('/orders', { state: { item } });
+      };
     
-
-
       return (
         <div className="search-page">
           <div className="left-content">
@@ -49,7 +51,7 @@ export const Search = () => {
                     alt={item.productName} style={{ maxWidth: '250px', height: 'auto' }}
                         />
                         <br/>
-                       <button onClick={() => navigate('/orders')}>Go to Orders Page</button>
+                        <button onClick={() => handleOrderClick(item)}>Go to Orders Page</button>
                   </div>
                             </div>
                         ))
